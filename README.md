@@ -70,7 +70,7 @@ The options object also takes a `body` property. This is where we put data we wa
 
 ### Challenge
 
-1. Edit your `fetch` to send a `POST` request to `"https://jsonplaceholder.typicode.com/posts"`
+1. Edit your `fetch` to send a `POST` request to `"https://reqres.in/api/users"`
 1. Send a JSON body with whatever properties you like
 1. Don't forget the `"content-type"`
 
