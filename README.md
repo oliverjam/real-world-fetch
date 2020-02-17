@@ -210,12 +210,12 @@ The form's submit event already contains references to each named element within
 
 There is a built-in API that mirrors a form's native behaviour. We can use `new FormData(event.target)` to create a [`FormData` interface](https://developer.mozilla.org/en-US/docs/Web/API/FormData). This is what the form would send if we didn't call `preventDefault()`.
 
-We can use `Object.fromEntries(data)` to turn this interface into a normal object if we want to submit it as JSON.
+If we want to submit this as JSON we need to turn it into a normal object. You can do this with a `for..of` loop or use `Object.fromEntries(data)`. Note: `fromEntries()` is relatively new and isn't supported in Edge/IE yet.
 
 #### Challenge
 
 1. Use `new FormData()` to get all the input values
-1. Use `Object.fromEntries()` to get an object of the input values
+1. Turn the FormData into an object
 1. Submit the values as JSON like before
 
 <details>
