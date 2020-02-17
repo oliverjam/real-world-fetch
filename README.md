@@ -73,3 +73,26 @@ The options object also takes a `body` property. This is where we put data we wa
 1. Edit your `fetch` to send a `POST` request to `"https://jsonplaceholder.typicode.com/posts"`
 1. Send a JSON body with whatever properties you like
 1. Don't forget the `"content-type"`
+
+<details>
+<summary>Answer</summary>
+
+```js
+const data = { test: "hello" };
+
+fetch("https://jsonplaceholder.typicode.com/posts", {
+  method: "POST",
+  body: JSON.stringify(data),
+  headers: { "content-type": "application/json" },
+})
+  .then(response => {
+    if (!response.ok) throw new Error(response.statusText);
+    return response.json();
+  })
+  .then(json => console.log(json))
+  .catch(error => console.error(error));
+
+// should log: { test: "hello", id: 101 }
+```
+
+</details>
