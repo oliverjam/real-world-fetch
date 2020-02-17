@@ -117,7 +117,7 @@ document.querySelector("form").addEventListener("submit", event => {
 
 ### `querySelector`
 
-We can use `querySelector` to directly access each form input, then get its value. For example `document.querySelector("#username").value`.
+We can use [`querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector) to directly access each form input, then get its value. For example `document.querySelector("#username").value`.
 
 #### Challenge
 
@@ -167,7 +167,7 @@ We can use `querySelector` to directly access each form input, then get its valu
 The form's submit event already contains references to each named element within it. We can access this at `event.target.elements.inputName`.
 
 1. Make sure your inputs have unique `name` attributes
-1. Use `event.target.elements` to get the input values
+1. Use [`event.target.elements`](https://developer.mozilla.org/en-US/docs/Web/API/HTMLFormElement/elements) to get the input values
 1. Submit the values as JSON like before
 
 <details>
