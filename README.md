@@ -78,9 +78,9 @@ The options object also takes a `body` property. This is where we put data we wa
 <summary>Answer</summary>
 
 ```js
-const data = { test: "hello" };
+const data = { name: "oli" };
 
-fetch("https://jsonplaceholder.typicode.com/posts", {
+fetch("https://reqres.in/api/users", {
   method: "POST",
   body: JSON.stringify(data),
   headers: { "content-type": "application/json" },
@@ -92,7 +92,7 @@ fetch("https://jsonplaceholder.typicode.com/posts", {
   .then(json => console.log(json))
   .catch(error => console.error(error));
 
-// should log: { test: "hello", id: 101 }
+// should log something like: { name: "oli", id: "499", createdAt: "2020-02-17T16:03:13.654Z" }
 ```
 
 </details>
@@ -126,6 +126,42 @@ We can use `querySelector` to directly access each form input, then get its valu
 1. Use `querySelector` to get each input's value
 1. Use `fetch` to `POST` the data as JSON to the same URL as before
 
+<details>
+<summary>Answer</summary>
+
+```html
+<form>
+  <label for="username">Post title</label>
+  <input id="username" />
+  <label for="password">Password</label>
+  <input type="password" id="password" />
+  <button type="submit">Log in</button>
+</form>
+
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const username = document.querySelector("#username").value;
+    const password = document.querySelector("#password").value;
+    const data = { username, password };
+    fetch("https://reqres.in/api/users", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+    })
+      .then(response => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .then(json => console.log(json))
+      .catch(error => console.error(error));
+  });
+</script>
+```
+
+</details>
+
 ### `event.target.elements`
 
 The form's submit event already contains references to each named element within it. We can access this at `event.target.elements.inputName`.
@@ -133,6 +169,42 @@ The form's submit event already contains references to each named element within
 1. Make sure your inputs have unique `name` attributes
 1. Use `event.target.elements` to get the input values
 1. Submit the values as JSON like before
+
+<details>
+<summary>Answer</summary>
+
+```html
+<form>
+  <label for="username">Post title</label>
+  <input id="username" name="username" />
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" />
+  <button type="submit">Log in</button>
+</form>
+
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const username = event.target.elements.username.value;
+    const password = event.target.elements.password.value;
+    const data = { username, password };
+    fetch("https://reqres.in/api/users", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+    })
+      .then(response => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .then(json => console.log(json))
+      .catch(error => console.error(error));
+  });
+</script>
+```
+
+</details>
 
 ### `new FormData()`
 
@@ -145,3 +217,38 @@ We can use `Object.fromEntries(data)` to turn this interface into a normal objec
 1. Use `new FormData()` to get all the input values
 1. Use `Object.fromEntries()` to get an object of the input values
 1. Submit the values as JSON like before
+
+<details>
+<summary>Answer</summary>
+
+```html
+<form>
+  <label for="username">Post title</label>
+  <input id="username" name="username" />
+  <label for="password">Password</label>
+  <input type="password" id="password" name="password" />
+  <button type="submit">Log in</button>
+</form>
+
+<script>
+  const form = document.querySelector("form");
+  form.addEventListener("submit", event => {
+    event.preventDefault();
+    const formData = new FormData(event.target);
+    const data = Object.fromEntries(formData);
+    fetch("https://reqres.in/api/users", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "content-type": "application/json" },
+    })
+      .then(response => {
+        if (!response.ok) throw new Error(response.statusText);
+        return response.json();
+      })
+      .then(json => console.log(json))
+      .catch(error => console.error(error));
+  });
+</script>
+```
+
+</details>
