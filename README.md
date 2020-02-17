@@ -96,3 +96,52 @@ fetch("https://jsonplaceholder.typicode.com/posts", {
 ```
 
 </details>
+
+## User input
+
+So far we've only hard-coded our requests. In reality they're usually triggered by a user submitting a form or clicking a button. There are several different ways we can access form data in our JavaScript.
+
+### Forms
+
+Forms are the semantically correct element for receiving user input. We should use them even when we're using JS to handle the request (rather than relying on the native browser submission).
+
+We can add a handler for the submit event like this:
+
+```js
+document.querySelector("form").addEventListener("submit", event => {
+  event.preventDefault();
+}))
+```
+
+`event.preventDefault()` will stop the browser trying to send the request for you. We want to handle the request with `fetch` instead.
+
+### `querySelector`
+
+We can use `querySelector` to directly access each form input, then get its value. For example `document.querySelector("#username").value`.
+
+#### Challenge
+
+1. Create a form with two inputs and a submit button
+1. Add a `"submit"` event handler to the form and use
+1. Use `querySelector` to get each input's value
+1. Use `fetch` to `POST` the data as JSON to the same URL as before
+
+### `event.target.elements`
+
+The form's submit event already contains references to each named element within it. We can access this at `event.target.elements.inputName`.
+
+1. Make sure your inputs have unique `name` attributes
+1. Use `event.target.elements` to get the input values
+1. Submit the values as JSON like before
+
+### `new FormData()`
+
+There is a built-in API that mirrors a form's native behaviour. We can use `new FormData(event.target)` to create a [`FormData` interface](https://developer.mozilla.org/en-US/docs/Web/API/FormData). This is what the form would send if we didn't call `preventDefault()`.
+
+We can use `Object.fromEntries(data)` to turn this interface into a normal object if we want to submit it as JSON.
+
+#### Challenge
+
+1. Use `new FormData()` to get all the input values
+1. Use `Object.fromEntries()` to get an object of the input values
+1. Submit the values as JSON like before
