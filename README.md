@@ -122,7 +122,7 @@ We can use [`querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Do
 #### Challenge
 
 1. Create a form with two inputs and a submit button
-1. Add a `"submit"` event handler to the form and use
+1. Add a `"submit"` event handler to the form (don't forget `preventDefault`)
 1. Use `querySelector` to get each input's value
 1. Use `fetch` to `POST` the data as JSON to the same URL as before
 
