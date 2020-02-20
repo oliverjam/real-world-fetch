@@ -252,3 +252,12 @@ If we want to submit this as JSON we need to turn it into a normal object. You c
 ```
 
 </details>
+
+## Workshop
+
+We're going to make a Pokémon search page using the PokéAPI.
+
+1. Create a form with a search input and submit button
+1. When the form is submitted request the Pokémon the user typed from `"https://pokeapi.co/api/v2/pokemon/{{NAME}}"`
+1. If the request succeeds show the Pokémon's name and sprite
+1. If the request fails show a relevant error to the user

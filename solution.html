@@ -4,38 +4,60 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Real world fetch</title>
+    <style>
+      label,
+      input,
+      output {
+        display: block;
+      }
+    </style>
   </head>
   <body>
     <form>
-      <label for="username">Post title</label>
-      <input id="username" name="username" />
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" />
-      <button type="submit">Log in</button>
+      <h1>Pokemon Search</h1>
+      <label for="pokemon">Pokemon name</label>
+      <input id="pokemon" name="pokemon" type="search" />
+      <button type="submit">Search</button>
+      <output></output>
     </form>
 
     <script>
       const form = document.querySelector("form");
+      const output = document.querySelector("output");
+
       form.addEventListener("submit", event => {
+        // stop the form submitting and reloading the page
         event.preventDefault();
+
+        // clear out any previous results
+        output.innerHTML = "";
+
+        // get the value of the field with name="pokemon"
         const formData = new FormData(event.target);
-        let data = {};
-        for (const input of formData) {
-          const [name, value] = input;
-          data[name] = value;
-        }
-        // OR const data = Object.fromEntries(formData);
-        fetch("https://reqres.in/api/users", {
-          method: "POST",
-          body: JSON.stringify(data),
-          headers: { "content-type": "application/json" },
-        })
+        const name = formData.get("pokemon");
+
+        // request that pokemon from PokeAPI
+        fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
           .then(response => {
             if (!response.ok) throw new Error(response.statusText);
             return response.json();
           })
-          .then(json => console.log(json))
-          .catch(error => console.error(error));
+          // if we get a successful response
+          .then(pokemonData => {
+            const heading = document.createElement("h2");
+            heading.textContent = pokemonData.name;
+            const image = document.createElement("img");
+            image.src = pokemonData.sprites.front_default;
+            image.alt = "";
+
+            output.appendChild(heading);
+            output.appendChild(image);
+          })
+          // if the request is unsuccessful
+          .catch(error => {
+            console.log(error);
+            output.textContent = error.message;
+          });
       });
     </script>
   </body>
