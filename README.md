@@ -31,7 +31,7 @@ We need to handle HTTP responses we don't want ourself. We can do this by checki
 ### Challenge
 
 1. Edit your `.then()` to check the response's `ok` property
-1. If the response is not okay throw a new error with the `statusText` property of the response
+1. If the response is not okay throw a new error with the `status` property of the response
 1. Now does your `.catch()` run?
 
 <details>
@@ -40,14 +40,14 @@ We need to handle HTTP responses we don't want ourself. We can do this by checki
 ```js
 fetch("/njagnja")
   .then(response => {
-    if (!response.ok) throw new Error(response.statusText);
+    if (!response.ok) throw new Error(response.status);
     console.log(response);
   })
   .catch(console.error);
 
 // .then() runs and sees its a 404
-// it throws a new error with the "Not Found" text
-// the catch will catch the error and log "Not Found"
+// it throws a new error with the 404 code
+// the catch will catch the error and log "404" and the stack trace
 ```
 
 </details>
@@ -86,7 +86,7 @@ fetch("https://reqres.in/api/users", {
   headers: { "content-type": "application/json" },
 })
   .then(response => {
-    if (!response.ok) throw new Error(response.statusText);
+    if (!response.ok) throw new Error(response.status);
     return response.json();
   })
   .then(json => console.log(json))
@@ -151,7 +151,7 @@ We can use [`querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Do
       headers: { "content-type": "application/json" },
     })
       .then(response => {
-        if (!response.ok) throw new Error(response.statusText);
+        if (!response.ok) throw new Error(response.status);
         return response.json();
       })
       .then(json => console.log(json))
@@ -195,7 +195,7 @@ The form's submit event already contains references to each named element within
       headers: { "content-type": "application/json" },
     })
       .then(response => {
-        if (!response.ok) throw new Error(response.statusText);
+        if (!response.ok) throw new Error(response.status);
         return response.json();
       })
       .then(json => console.log(json))
@@ -242,7 +242,7 @@ If we want to submit this as JSON we need to turn it into a normal object. You c
       headers: { "content-type": "application/json" },
     })
       .then(response => {
-        if (!response.ok) throw new Error(response.statusText);
+        if (!response.ok) throw new Error(response.status);
         return response.json();
       })
       .then(json => console.log(json))

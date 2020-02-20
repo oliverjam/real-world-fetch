@@ -16,7 +16,7 @@
     <form>
       <h1>Pokemon Search</h1>
       <label for="pokemon">Pokemon name</label>
-      <input id="pokemon" name="pokemon" type="search" />
+      <input id="pokemon" name="pokemon" type="search" required />
       <button type="submit">Search</button>
       <output></output>
     </form>
@@ -39,7 +39,7 @@
         // request that pokemon from PokeAPI
         fetch(`https://pokeapi.co/api/v2/pokemon/${name}`)
           .then(response => {
-            if (!response.ok) throw new Error(response.statusText);
+            if (!response.ok) throw new Error(response.status);
             return response.json();
           })
           // if we get a successful response
@@ -56,7 +56,11 @@
           // if the request is unsuccessful
           .catch(error => {
             console.log(error);
-            output.textContent = error.message;
+            if (error.message === "404") {
+              output.textContent = `⚠️ Couldn't find "${name}"`;
+            } else {
+              output.textContent = "⚠️ Something went wrong";
+            }
           });
       });
     </script>
