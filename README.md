@@ -261,3 +261,5 @@ We're going to make a Pokémon search page using the PokéAPI.
 1. When the form is submitted request the Pokémon the user typed from `"https://pokeapi.co/api/v2/pokemon/{{NAME}}"`
 1. If the request succeeds show the Pokémon's name and sprite
 1. If the request fails show a relevant error to the user
+
+![real-world-fetch](https://user-images.githubusercontent.com/9408641/74943442-4a2be780-53ec-11ea-90f2-77bc07bbcdbb.gif)
