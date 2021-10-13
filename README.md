@@ -9,14 +9,14 @@ The browser's `fetch` method is deliberately low-level. This means there are cer
 ### Challenge
 
 1. Open `workshop.html` in your editor
-1. Add a `fetch` call to `"/njagnja"` (or any nonexistent URL)
+1. Add a `fetch` call to `"https://echo.oliverjam.workers.dev/status/404"` (this will always return a 404 response)
 1. Add a `.then()` and `.catch()`. Which of these runs? What does the response look like?
 
 <details>
 <summary>Answer</summary>
 
 ```js
-fetch("/njagnja")
+fetch("https://echo.oliverjam.workers.dev/status/404")
   .then(console.log)
   .catch(console.error);
 
@@ -38,7 +38,7 @@ We need to handle HTTP responses we don't want ourself. We can do this by checki
 <summary>Answer</summary>
 
 ```js
-fetch("/njagnja")
+fetch("https://echo.oliverjam.workers.dev/status/404")
   .then(response => {
     if (!response.ok) throw new Error(response.status);
     console.log(response);
@@ -70,7 +70,7 @@ The options object also takes a `body` property. This is where we put data we wa
 
 ### Challenge
 
-1. Edit your `fetch` to send a `POST` request to `"https://reqres.in/api/users"`
+1. Edit your `fetch` to send a `POST` request to `"https://echo.oliverjam.workers.dev/json"`
 1. Send a JSON body with whatever properties you like
 1. Don't forget the `"content-type"`
 
@@ -80,7 +80,7 @@ The options object also takes a `body` property. This is where we put data we wa
 ```js
 const data = { name: "oli" };
 
-fetch("https://reqres.in/api/users", {
+fetch("https://echo.oliverjam.workers.dev/json", {
   method: "POST",
   body: JSON.stringify(data),
   headers: { "content-type": "application/json" },
@@ -92,7 +92,7 @@ fetch("https://reqres.in/api/users", {
   .then(json => console.log(json))
   .catch(error => console.error(error));
 
-// should log something like: { name: "oli", id: "499", createdAt: "2020-02-17T16:03:13.654Z" }
+// should log something like: { name: "oli", id: "499", created: "2021-10-17T16:03:13.654Z" }
 ```
 
 </details>
@@ -145,7 +145,7 @@ We can use [`querySelector`](https://developer.mozilla.org/en-US/docs/Web/API/Do
     const username = document.querySelector("#username").value;
     const password = document.querySelector("#password").value;
     const data = { username, password };
-    fetch("https://reqres.in/api/users", {
+    fetch("https://echo.oliverjam.workers.dev/json", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "content-type": "application/json" },
@@ -189,7 +189,7 @@ The form's submit event already contains references to each named element within
     const username = event.target.elements.username.value;
     const password = event.target.elements.password.value;
     const data = { username, password };
-    fetch("https://reqres.in/api/users", {
+    fetch("https://echo.oliverjam.workers.dev/json", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "content-type": "application/json" },
@@ -236,7 +236,7 @@ If we want to submit this as JSON we need to turn it into a normal object. You c
     event.preventDefault();
     const formData = new FormData(event.target);
     const data = Object.fromEntries(formData);
-    fetch("https://reqres.in/api/users", {
+    fetch("https://echo.oliverjam.workers.dev/json", {
       method: "POST",
       body: JSON.stringify(data),
       headers: { "content-type": "application/json" },
